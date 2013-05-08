@@ -4,17 +4,37 @@ The C++ Koans are designed to instruct the learner in the proper application of 
 
 ##about_static_assertions
 
+##about_keywords_and_identifiers
+
+##about_expressions_and_statements_and_blocks
+
 ##about_basic_types
+
+##about_type_inference
 
 ##about_functions
 
 ##about_the_main_function
 
-##about_keywords_and_identifiers
+##about_user_defined_types
+
+##about_preprocessing_and_compilation_and_linking
+
+##about_forward_declaration_and_headers
 
 ##about_namespaces
 
-##about_preprocessing
+##about_runtime_assertions
 
-##about_the_standard_library
+##about_arithmatic_operators
+
+##about_boolean_operators
+
+##about_other_operators
+
+##about_selection_control_flow
+
+##about_iteration_control_flow
+
+##about_input_and_output
 
