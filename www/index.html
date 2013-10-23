@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="resources/koans_style.css" />
+    <script type="text/javascript" src="resources/koans.js"></script>
+  </head>
+
+  <body>
+    <h2>about_something</h2>  
+  
+    <div class="koans">
+      <div class="text">
+          // This is a comment
+      </div>
+      <div class="failing" id="koan_1">
+        Hello Failure
+        <input type="text" name="koan_1_1" onchange="evaluateInput(this);" onkeyup="solveInput(this, event)" />
+      </div>
+    
+      <div class="passing" id="koan_2">
+        Hello Success!
+        <input type="text" name="koan_2_1" onchange="evaluateInput(this);" onkeyup="solveInput(this, event)" />
+      </div>
+    </div>
+
+  </body>
+
+</html>
+

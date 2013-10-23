@@ -1,0 +1,39 @@
+.koans {
+  font-size: 1em;
+  font-family: monospace;
+}
+
+.koans .text {
+  padding: 0.5em;
+}
+
+.koans .failing,
+.koans .passing {
+  padding: 0.2em 0.5em;
+  margin: 0.5em 0;
+}
+
+.koans .failing {
+  background-color: #FF9999;
+  background-color: rgba(255, 153, 153, 0.6);
+  border: 1px solid #E70800;
+}
+
+.koans .passing {
+  background-color: #CCFFCC;
+  background-color: rgba(204, 255, 204, 0.6);
+  border: 1px solid #00700F;
+}
+
+.koans input {
+  font-family: monospace;
+  font-size: 1em;
+  padding: 0.2em;
+}
+
+.koans .passing input,
+.koans .failing input {
+  border: 0;
+  background-color: rgba(255,255,255, 0.6);
+  border-bottom: 1px solid rgba(255,255,255 , 0.8);
+}    
