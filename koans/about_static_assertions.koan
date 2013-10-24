@@ -1,0 +1,12 @@
+// The compiler knows much, use its knowledge to your advantage with static_assert
+// The answer which you seek:
+// <false> is not true.
+$1
+static_assert(@1,true@, "This should not be false");
+$
+
+// Other stuff
+$2
+static_assert(false, @1,"Forced failure"@);
+$
+

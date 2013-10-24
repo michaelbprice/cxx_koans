@@ -1,4 +1,5 @@
 #include "CxxKoanServer.hpp"
+#include "CxxKoanHtmlPrinter.hpp"
 
 #include "cpprest/http_listener.h"
 #include <boost/filesystem.hpp>
@@ -41,8 +42,22 @@ Server::Server (const std::string & listenerUrl,
 
         if (resource.compare(0, 6, kKoansPrefix) == 0) // TODO: Avoid hardcoded string length
         {
-            cout << "No koans yet: " << resource << endl;
-            request.reply(status_codes::NotFound, U("No Koans Yet"));
+            string koan_name = resource.substr(6);
+
+            //cout << "No koans yet: " << resource << endl;
+            http_response response(status_codes::OK);
+
+            //request.reply(status_codes::NotFound, U("No Koans Yet"));
+            auto koan_path = filesystem::path{m_koanDirectory} / koan_name;
+
+            ostringstream koan_contents_stream;
+            printKoanAsHtml(koan_path.string(), koan_contents_stream);
+
+cout << koan_contents_stream.str() << endl;
+
+            response.headers().set_content_type("text/html");
+            response.set_body(koan_contents_stream.str());
+            request.reply(response);
         }
         else
         {
