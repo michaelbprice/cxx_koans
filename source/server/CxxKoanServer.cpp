@@ -99,7 +99,7 @@ Server::Server (const std::string & listenerUrl,
             auto koan_path = filesystem::path{m_koanDirectory} / koan_name;
 
             ostringstream koan_contents_stream;
-            printKoanAsHtml(koan_path.string(), koan_contents_stream);
+            printKoanAsHtml(koan_path.string(), koan_contents_stream, koan_name);
 
             response.headers().set_content_type("text/html");
             response.set_body(koan_contents_stream.str());

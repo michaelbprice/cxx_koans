@@ -6,7 +6,9 @@
 
 namespace cxxkoans {
 
-void printKoanAsHtml (const std::string & koanFilePath, std::ostream & out);
+void printKoanAsHtml (const std::string & koanFilePath,
+                      std::ostream & out,
+                      const std::string & koan_name);
 
 } // namespace cxxkoans
 

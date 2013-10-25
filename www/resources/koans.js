@@ -25,7 +25,10 @@ function evaluateExercise (exerciseElement)
         }
     }
 
-    xmlhttp.open("POST", "/evaluate/about_static_assertions.koan", true);
+    alert(exerciseElement.parentNode);
+    alert(exerciseElement.parentNode.id);
+
+    xmlhttp.open("POST", "/evaluate" + exerciseElement.parentNode.id, true);
     xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.send(JSON.stringify(jsonData));
 }
@@ -55,7 +58,7 @@ function solveInput (inputElement, e)
             evaluateExercise(inputElement.parentNode);
         }
 
-        xmlhttp.open("POST", "/solve/about_static_assertions.koan", true);
+        xmlhttp.open("POST", "/solve" + inputElement.parentNode.parentNode.id, true);
         xmlhttp.setRequestHeader("Content-type", "application/json");
         xmlhttp.send(JSON.stringify(jsonData));
     }

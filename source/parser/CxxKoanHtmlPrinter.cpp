@@ -34,12 +34,6 @@ const char kHtmlHeader[] = R"(
 
 const char kHtmlBreakLine[] = "<br/>";
 
-const regex lessThan{"<"};
-const char lessThanReplacement[] = "&lt;";
-
-const regex greaterThan{">"};
-const char greaterThanReplacement[] = "&gt;";
-
 const regex exerciseBegin{R"(\$(\d))"};
 const char exerciseBeginReplacement[] = R"(<div class="failing" id="$1" />)";
 const regex exerciseEnd{R"(\$)"};
@@ -54,7 +48,9 @@ const regex output{"@!"};
 
 namespace cxxkoans {
 
-void printKoanAsHtml (const std::string & koanFilePath, std::ostream & out)
+void printKoanAsHtml (const std::string & koanFilePath,
+                      std::ostream & out,
+                      const std::string & koan_name)
 {
     ifstream koan_file_stream{koanFilePath};
 
@@ -68,16 +64,13 @@ void printKoanAsHtml (const std::string & koanFilePath, std::ostream & out)
     out << kHtmlHeader << endl;
     out << kHtmlBodyTagOpen << endl;
     out << "<h2>" << koanFilePath << "</h2>" << endl;
-    out << kHtmlDivKoan << endl;
+    out << R"(<div class="koans" id=")" << koan_name << R"(">)" << endl;;
 
     string exerciseNumber;
     string inputNumber;
 
     for (std::string line; std::getline(koan_file_stream, line); /*Purposefully empty*/)
     {
-        line = regex_replace(line, lessThan, lessThanReplacement);
-        line = regex_replace(line, greaterThan, greaterThanReplacement);
-
         smatch match_results;
 
         if (regex_match(line, match_results, exerciseBegin))
