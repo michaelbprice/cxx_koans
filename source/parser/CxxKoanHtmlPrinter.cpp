@@ -45,7 +45,7 @@ const char exerciseBeginReplacement[] = R"(<div class="failing" id="$1" />)";
 const regex exerciseEnd{R"(\$)"};
 
 const regex input{R"(@(\d+),([^@]*)@)"};
-const char inputReplacement[] = R"(<input type="text" name="koan_?_$1" onchange="evaluateInput(this);" onkeyup="solveInput(this, event);" />)";
+const char inputReplacement[] = R"(<input type="text" name="koan_?_$1" onchange="evaluateExercise(this.parentNode);" onkeyup="solveInput(this, event);" />)";
 
 const regex output{"@!"};
 
@@ -94,7 +94,7 @@ void printKoanAsHtml (const std::string & koanFilePath, std::ostream & out)
         {
             inputNumber = match_results[1]; 
             out << match_results.prefix();
-            out << R"(<input type="text" name="koan_)" << exerciseNumber << "_" << match_results[1] << R"(" onchange="evaluateInput(this);" onkeyup="solveInput(this, event);" />)";
+            out << R"(<input type="text" name="koan_)" << exerciseNumber << "_" << match_results[1] << R"(" onchange="evaluateExercise(this.parentNode);" onkeyup="solveInput(this, event);" />)";
             out << match_results.suffix();
         }
 /*

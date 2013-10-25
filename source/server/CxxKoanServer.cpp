@@ -1,5 +1,6 @@
 #include "CxxKoanServer.hpp"
 #include "CxxKoanHtmlPrinter.hpp"
+#include "CxxKoanSolver.hpp"
 
 #include "cpprest/http_listener.h"
 #include <boost/filesystem.hpp>
@@ -19,6 +20,8 @@ using namespace std;
 namespace { // private
 
 const char kKoansPrefix[] = "/koans";
+const char kSolvePrefix[] = "/solve";
+const char kEvaluatePrefix[] = "/evaluate";
 
 unordered_map<string, string> extensionsToContentTypeMap = {{"html", "text/html"},
                                                             {"js", "application/javascript"},
@@ -36,6 +39,53 @@ Server::Server (const std::string & listenerUrl,
   , m_koanDirectory{koanDirectory}
   , m_listener{listenerUrl}
 {
+
+    m_listener.support(methods::POST, [this] (http_request request)
+    {
+        auto resource = request.request_uri().resource().to_string();
+
+        if (resource.compare(0, 6, kSolvePrefix) == 0) // TODO: Avoid hardcoded string length
+        {
+            json::value jsonData = request.extract_json().get();
+
+            string koan_name = resource.substr(6);
+
+            http_response response(status_codes::OK);
+
+            auto koan_path = filesystem::path{m_koanDirectory} / koan_name;
+
+            string answer = getKoanExerciseAnswer(koan_path.string(), jsonData["exercise"].as_string(), jsonData["input"].as_string());
+
+            response.headers().set_content_type("text/plain");
+            response.set_body(answer);
+            request.reply(response);
+        }
+        else if (resource.compare(0, 9, kEvaluatePrefix) == 0) // TODO: Avoid hardcoded string length
+        {
+            json::value jsonData = request.extract_json().get();
+
+            string koan_name = resource.substr(9);
+
+            auto koan_path = filesystem::path{m_koanDirectory} / koan_name;
+
+            int i = 1;
+            for (auto value : jsonData["inputs"])
+            {
+                string answer = getKoanExerciseAnswer(koan_path.string(), jsonData["exercise"].as_string(), to_string(i));
+
+                if (answer.compare(value.second.as_string()) != 0)
+                {
+                    request.reply(status_codes::NotFound, "NotFound");
+                    return;
+                }
+
+                ++i;
+            }
+
+            request.reply(status_codes::OK, "OK");
+        }
+    });
+
     m_listener.support(methods::GET, [this] (http_request request)
     {
         auto resource = request.request_uri().resource().to_string();
@@ -44,16 +94,12 @@ Server::Server (const std::string & listenerUrl,
         {
             string koan_name = resource.substr(6);
 
-            //cout << "No koans yet: " << resource << endl;
             http_response response(status_codes::OK);
 
-            //request.reply(status_codes::NotFound, U("No Koans Yet"));
             auto koan_path = filesystem::path{m_koanDirectory} / koan_name;
 
             ostringstream koan_contents_stream;
             printKoanAsHtml(koan_path.string(), koan_contents_stream);
-
-cout << koan_contents_stream.str() << endl;
 
             response.headers().set_content_type("text/html");
             response.set_body(koan_contents_stream.str());
