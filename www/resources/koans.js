@@ -25,9 +25,6 @@ function evaluateExercise (exerciseElement)
         }
     }
 
-    alert(exerciseElement.parentNode);
-    alert(exerciseElement.parentNode.id);
-
     xmlhttp.open("POST", "/evaluate" + exerciseElement.parentNode.id, true);
     xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.send(JSON.stringify(jsonData));
