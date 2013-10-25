@@ -1,3 +1,8 @@
+body {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
 .koans {
   font-size: 1em;
   font-family: monospace;
