@@ -1,2 +1,21 @@
-// Certain names are reserved by the compiler and have special meanings
+// The C++ compiler operates on sequences of characters known as tokens.
+// There are various kinds of C++ tokens
 
+// <i>Literals</i> are tokens that represent an unchanging value, such as the
+// number literal <b>10</b>, the character literal <b>'a'</b>, or the
+// string literal <b>"Hello"</b>.
+// The answer which you seek:
+// The number literal that causes this test to pass.
+$1
+static_assert(42 == @1,42@, "The literal <b>42</b> is equal to what?");
+$
+
+// <i>Operators</i> are tokens that perform some operation on one or more
+// values, such as <b>+</b>, <b>%</b>, or <b>*</b>.
+// The answer which you seek:
+// The operator that causes this test to pass
+$2
+static_assert(1 @1,+@ 1 == 2, "Basic arithmetic should still work.");
+$
+
+// <a href="/koans/about_keywords_and_identifiers.koan">Next - about_keywords_and_identifiers</a>

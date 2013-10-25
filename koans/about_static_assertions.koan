@@ -1,12 +1,15 @@
 // The compiler knows much, use its knowledge to your advantage with static_assert
 // The answer which you seek:
-// <false> is not true.
+// &lt;false&gt; is not true.
 $1
 static_assert(@1,true@, "This should not be false");
 $
 
-// Other stuff
+// With static_assert, you can make the compiler print a custom error message
+// The answer which you seek:
+// Cause the compiler to print "Forced failure" here.
 $2
 static_assert(false, @1,"Forced failure"@);
 $
 
+// <a href="/koans/about_keywords_and_identifiers.koan">Next - about_keywords_and_identifiers</a>
