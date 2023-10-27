@@ -1,0 +1,29 @@
+name: C++ CI
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+            
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y clang-15
+
+    - name: Configure CMake
+      run: cmake --preset ${{ matrix.configuration }}_Clang -S ${{github.workspace}}
+
+    - name: Build
+      run: cmake --build
+
+    #- name: Test
+    #  run: ctest --output-on-failure
