@@ -7,7 +7,7 @@ jobs:
 
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Debug_Clang, Release_Clang]
 
     runs-on: ubuntu-latest
 
@@ -20,10 +20,10 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y clang-15
 
     - name: Configure CMake
-      run: cmake --preset ${{ matrix.configuration }}_Clang -S ${{github.workspace}}
+      run: cmake --preset ${{ matrix.configuration }} -S ${{github.workspace}}
 
     - name: Build
-      run: cmake --build
+      run: cmake --build --preset ${{ matrix.configuration }}
 
     #- name: Test
     #  run: ctest --output-on-failure

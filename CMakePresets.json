@@ -43,5 +43,15 @@
             "inherits": [ "base", "release", "clang"],
             "displayName": "Release - Clang"
         }
+    ],
+    "buildPresets": [
+        {
+            "name": "Debug_Clang",
+            "configurePreset": "Debug_Clang"
+        },
+        {
+            "name": "Release_Clang",
+            "configurePreset": "Release_Clang"
+        }
     ]
 }
