@@ -69,11 +69,11 @@ Server::Server (const std::string & listenerUrl,
             auto koan_path = filesystem::path{m_koanDirectory} / koan_name;
 
             int i = 1;
-            for (auto value : jsonData["inputs"])
+            for (auto value : jsonData["inputs"].as_array())
             {
                 string answer = getKoanExerciseAnswer(koan_path.string(), jsonData["exercise"].as_string(), to_string(i));
 
-                if (answer.compare(value.second.as_string()) != 0)
+                if (answer.compare(value.as_string()) != 0)
                 {
                     request.reply(status_codes::NotFound, "NotFound");
                     return;
@@ -109,7 +109,7 @@ Server::Server (const std::string & listenerUrl,
         {
             auto resource_path = filesystem::path{m_staticResourceDirectory} / resource;
 
-            ifstream resource_stream{resource_path.string()};
+            ifstream resource_stream{filesystem::absolute(resource_path).string()};
             ostringstream resource_contents_stream;
 
             copy(istreambuf_iterator<char>(resource_stream), istreambuf_iterator<char>(),

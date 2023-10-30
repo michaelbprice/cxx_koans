@@ -1,0 +1,21 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/cpp
+{
+	"name": "C++",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install linux-libc-dev",
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"github.copilot-chat",
+				"github.copilot-nightly",
+				"github.vscode-github-actions",
+				"ms-vscode.cpptools-extension-pack"
+			]
+		}
+	}
+}

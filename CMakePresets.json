@@ -1,0 +1,57 @@
+{
+    "version": 4,
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+            },
+            "generator": "Unix Makefiles",
+            "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        },
+        {
+            "name": "debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "clang",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "/usr/bin/clang",
+                "CMAKE_CXX_COMPILER": "/usr/bin/clang++"                
+            }
+        },
+        {
+            "name": "Debug_Clang",
+            "inherits": [ "base", "debug", "clang"],
+            "displayName": "Debug - Clang"
+        },
+        {
+            "name": "Release_Clang",
+            "inherits": [ "base", "release", "clang"],
+            "displayName": "Release - Clang"
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Debug_Clang",
+            "configurePreset": "Debug_Clang"
+        },
+        {
+            "name": "Release_Clang",
+            "configurePreset": "Release_Clang"
+        }
+    ]
+}
