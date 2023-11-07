@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(cxx_koans)
 
 find_package(cpprestsdk REQUIRED)
+find_package(Poco REQUIRED COMPONENTS Net)
 
 file(GLOB SOURCES
     source/main.cpp
@@ -19,4 +20,5 @@ target_include_directories(cxx-koan-server PUBLIC
 target_link_libraries(cxx-koan-server PRIVATE
     Boost::thread Boost::filesystem
     cpprestsdk::cpprest
+    Poco::Net
 )
