@@ -16,6 +16,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+
     steps:
     - uses: actions/checkout@v2
       with:
@@ -23,6 +26,9 @@ jobs:
             
     - name: Install dependencies
       run: sudo apt-get update && sudo apt-get install -y clang-15
+
+    - name: Expose GitHub Runtime
+      uses: crazy-max/ghaction-github-runtime@v3.0.0
 
     - name: Configure CMake
       run: cmake --preset ${{ matrix.configuration }} -S ${{github.workspace}}
